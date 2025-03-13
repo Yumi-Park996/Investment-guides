@@ -55,7 +55,7 @@
     <!-- Question Form -->
     <div class="card question-form-card mb-4">
         <h3 class="mb-4 text-center">💡 해외주식 궁금한 점을 물어보세요</h3>
-        <form action="<%=request.getContextPath()%>/answer" method="post">
+        <form id="questionForm" action="<%=request.getContextPath()%>/answer" method="post">
             <div class="mb-3">
                 <input type="text" class="form-control" id="questionInput" name="question"
                        placeholder="예: 초보자가 투자하기 좋은 해외 주식은?" required>
@@ -68,7 +68,7 @@
                 </select>
             </div>
             <div class="text-center">
-                <button type="submit" class="btn btn-gradient">질문하기</button>
+                <button id="submitButton" type="submit" class="btn btn-gradient">질문하기</button>
             </div>
             <!-- ✅ 로딩 스피너 -->
             <div id="loadingSpinner" class="text-center mt-3 d-none">
