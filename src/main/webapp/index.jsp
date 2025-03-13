@@ -70,6 +70,13 @@
             <div class="text-center">
                 <button type="submit" class="btn btn-gradient">질문하기</button>
             </div>
+            <!-- ✅ 로딩 스피너 -->
+            <div id="loadingSpinner" class="text-center mt-3 d-none">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-2">AI가 답변을 생성하는 중입니다...</p>
+            </div>
         </form>
     </div>
 
@@ -162,6 +169,14 @@
 
     document.getElementById('newQuestionBtn').addEventListener('click', function() {
         document.querySelector('.response-card').classList.add('d-none');
+    });
+
+    document.getElementById("questionForm").addEventListener("submit", function (event) {
+        // 스피너 표시
+        document.getElementById("loadingSpinner").classList.remove("d-none");
+
+        // 버튼 비활성화
+        document.getElementById("submitButton").disabled = true;
     });
 </script>
 </body>

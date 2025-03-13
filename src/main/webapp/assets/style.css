@@ -58,6 +58,13 @@ body {
     border-radius: 15px;
 }
 
+#loadingSpinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 /* 랜덤 질문 카드 */
 .features-section {
     display: flex;
