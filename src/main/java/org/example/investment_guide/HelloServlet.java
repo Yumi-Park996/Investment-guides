@@ -1,4 +1,4 @@
-package org.example.pilates_helper;
+package org.example.investment_guide;
 
 import java.io.*;
 

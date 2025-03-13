@@ -1,9 +1,8 @@
-package org.example.pilates_helper.util;
+package org.example.investment_guide.util;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import org.example.pilates_helper.model.dto.APIClientParam;
+import org.example.investment_guide.model.dto.APIClientParam;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;

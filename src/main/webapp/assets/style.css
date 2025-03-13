@@ -1,0 +1,91 @@
+@font-face {
+    font-family: 'GowunDodum';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunDodum-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap; /* 빠른 로딩 */
+}
+
+:root {
+    --primary: #FFB74D;
+    --secondary: #4DB6AC;
+    --accent: #FF4081;
+    --background: #FFF3E0;
+    --text-dark: #37474F;
+    --text-light: #FAFAFA;
+}
+
+body {
+    font-family: 'GowunDodum', Roboto, sans-serif;
+    background-color: var(--background);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem 0;
+}
+
+.app-container {
+    max-width: 1080px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+/* 카드 스타일 */
+.card {
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border: none;
+    margin-bottom: 1.5rem;
+    background: white;
+    transition: all 0.3s ease;
+    padding: 1.8rem;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+/* 햄톨이 이미지 */
+#main-image {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 15px;
+}
+
+/* 랜덤 질문 카드 */
+.features-section {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.feature-item {
+    flex: 1 1 calc(30% - 10px);
+    min-width: 220px;
+    text-align: center;
+    background: white;
+    padding: 1.2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+    background: var(--primary);
+    color: var(--text-light);
+}
+
+.feature-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+    color: var(--accent);
+}
