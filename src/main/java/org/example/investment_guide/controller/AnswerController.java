@@ -5,9 +5,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.investment_guide.model.repository.SupabaseRepository;
+import org.example.investment_guide.common.ModelType;
+import org.example.investment_guide.repository.SupabaseRepository;
 import org.example.investment_guide.service.OpenAIService;
-import org.example.investment_guide.model.dto.YouTubeVideo;
+import org.example.investment_guide.model.YouTubeVideo;
+import org.example.investment_guide.service.SupabaseService;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -25,20 +27,33 @@ public class AnswerController extends HttpServlet {
 
         String userQuestion = request.getParameter("question");
         String modelType = request.getParameter("modelType");
-        boolean retrievalEnabled = true; // 기본값 설정
 
         logger.info("🟢 AnswerController.doPost() 실행됨 (질문하기 버튼 클릭됨)");
         logger.info("📌 입력된 질문: " + userQuestion);
         logger.info("📌 선택된 모델: " + modelType);
 
         try {
-            String aiAnswer = OpenAIService.getInstance().useBaseModel(userQuestion, true);
+            ModelType selectedModel;
+            try {
+                selectedModel = ModelType.valueOf(modelType.toUpperCase()); // String → Enum 변환
+            } catch (IllegalArgumentException | NullPointerException e) {
+                selectedModel = ModelType.BASE;  // 기본값 지정
+                logger.warning("⚠️ 유효하지 않은 모델 타입: " + modelType + " (기본값 BASE로 설정)");
+            }
+
+            String aiAnswer;
+            if (selectedModel == ModelType.REASONING) {
+                aiAnswer = OpenAIService.getInstance().useReasoningModel(userQuestion);
+            } else {
+                aiAnswer = OpenAIService.getInstance().useBaseModel(userQuestion);
+            }
+
             request.getSession().setAttribute("question", userQuestion);
             request.getSession().setAttribute("answer", aiAnswer);
             request.getSession().setAttribute("modelType", modelType);
 
             // ✅ 무조건 랜덤 유튜브 영상 2개 추천
-            List<YouTubeVideo> allVideos = SupabaseRepository.getYouTubeVideos();
+            List<YouTubeVideo> allVideos = SupabaseService.getYouTubeVideos();
 
             if (allVideos == null || allVideos.isEmpty()) {
                 logger.warning("⚠️ Supabase에서 유튜브 영상 데이터를 가져오지 못함.");

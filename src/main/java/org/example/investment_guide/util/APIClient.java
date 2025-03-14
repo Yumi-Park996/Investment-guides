@@ -1,7 +1,7 @@
 package org.example.investment_guide.util;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import org.example.investment_guide.model.dto.APIClientParam;
+import org.example.investment_guide.dto.APIClientParam;
 
 import java.net.URI;
 import java.net.http.HttpClient;

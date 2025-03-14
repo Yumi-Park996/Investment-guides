@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.List, org.example.investment_guide.model.dto.FAQ" %>
+<%@ page import="java.util.List, org.example.investment_guide.model.FAQ" %>
 <%
     // 📌 애플리케이션 스코프에서 FAQ 리스트 가져오기
     List<FAQ> faqs = (List<FAQ>) application.getAttribute("faqs");

@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.List, java.util.Random, java.util.ArrayList, java.util.Collections, org.example.investment_guide.model.dto.FAQ, org.example.investment_guide.model.dto.YouTubeVideo" %>
+<%@ page import="java.util.List, java.util.Random, java.util.ArrayList, java.util.Collections, org.example.investment_guide.model.FAQ, org.example.investment_guide.model.YouTubeVideo" %>
 
 <%
     List<FAQ> faqs = (List<FAQ>) application.getAttribute("faqs");
@@ -14,9 +14,12 @@
     Collections.shuffle(randomFAQs, rand);
     int maxDisplay = Math.min(3, randomFAQs.size());
 
-    List<YouTubeVideo> recommendedVideos = (List<YouTubeVideo>) session.getAttribute("recommendedVideos");
-    if (recommendedVideos == null) {
+    List<YouTubeVideo> recommendedVideos = (List<YouTubeVideo>) application.getAttribute("youtubeVideos");
+    if (recommendedVideos == null || recommendedVideos.isEmpty()) {
         recommendedVideos = new ArrayList<>();
+    } else {
+        Collections.shuffle(recommendedVideos);  // ✅ 리스트 섞기
+        recommendedVideos = recommendedVideos.subList(0, Math.min(2, recommendedVideos.size()));  // ✅ 상위 2개 선택
     }
 
     String userQuestion = (String) session.getAttribute("question");

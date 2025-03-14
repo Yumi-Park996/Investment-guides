@@ -5,13 +5,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.example.investment_guide.model.dto.ModelType;
+import org.example.investment_guide.common.ModelType;
 import org.example.investment_guide.service.OpenAIService;
 
 import java.io.IOException;
 
 @WebServlet ("/")
-public class RootController extends Controller {
+public class RootBaseController extends BaseController {
     final static OpenAIService OPEN_AI_SERVICE = OpenAIService.getInstance();
 
     @Override
@@ -29,7 +29,6 @@ public class RootController extends Controller {
 
         String question = req.getParameter("question");
         String modelTypeParam = req.getParameter("modelType"); // 프론트엔드에서 모델 선택 받기
-        String retrievalParam = req.getParameter("retrieval"); // RAG 여부 선택
 
         HttpSession session = req.getSession();
 
@@ -47,17 +46,13 @@ public class RootController extends Controller {
             modelType = ModelType.BASE;
         }
 
-        // RAG 사용 여부 설정 (기본값: false)
-        boolean retrievalEnabled = retrievalParam != null && retrievalParam.equalsIgnoreCase("true");
-
         session.setAttribute("message", null);
         session.setAttribute("question", question);
         session.setAttribute("modelType", modelType.name()); // 모델 정보 저장
-        session.setAttribute("retrievalEnabled", retrievalEnabled); // RAG 사용 여부 저장
 
         try {
             // 선택된 모델 실행
-            String answer = OPEN_AI_SERVICE.useModel(question, modelType, retrievalEnabled);
+            String answer = OPEN_AI_SERVICE.useModel(question, modelType);
             session.setAttribute("answer", answer);
         } catch (Exception e) {
             session.setAttribute("answer", "답변을 생성하는 도중 오류가 발생했습니다.");

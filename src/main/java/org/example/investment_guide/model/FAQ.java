@@ -1,4 +1,4 @@
-package org.example.investment_guide.model.dto;
+package org.example.investment_guide.model;
 
 public class FAQ {
     private String question;
